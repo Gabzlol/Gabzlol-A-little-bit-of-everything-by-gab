@@ -1,0 +1,199 @@
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+ 
+pcall(function()
+	game.StarterGui:SetCore("SendNotification", {
+		Title = "Your game, Your rules",
+		Text = "Made by Gab",
+		Duration = 4
+	})
+end)
+ 
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "GabGui"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = PlayerGui
+ 
+local Frame = Instance.new("Frame")
+Frame.Size = UDim2.new(0, 350, 0, 380)
+Frame.Position = UDim2.new(0.5, -175, 0.5, -190)
+Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Frame.Active = true
+Frame.Draggable = true
+Frame.Parent = ScreenGui
+Instance.new("UICorner", Frame)
+ 
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, 0, 0, 28)
+Title.Position = UDim2.new(0, 0, 0, 5)
+Title.BackgroundTransparency = 1
+Title.Text = "A little bit of everything"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.Font = Enum.Font.SourceSansBold
+Title.TextSize = 22
+Title.TextXAlignment = Enum.TextXAlignment.Center
+Title.Parent = Frame
+ 
+local TabMain = Instance.new("TextButton")
+TabMain.Size = UDim2.new(0, 80, 0, 25)
+TabMain.Position = UDim2.new(0, 10, 0, 35)
+TabMain.Text = "Main"
+TabMain.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+TabMain.TextColor3 = Color3.fromRGB(255, 255, 255)
+TabMain.Font = Enum.Font.SourceSansBold
+TabMain.TextSize = 18
+Instance.new("UICorner", TabMain)
+TabMain.Parent = Frame
+ 
+local TabCredits = TabMain:Clone()
+TabCredits.Text = "Credits"
+TabCredits.Position = UDim2.new(0, 100, 0, 35)
+TabCredits.Parent = Frame
+ 
+local MainContent = Instance.new("Frame")
+MainContent.Size = UDim2.new(1, -20, 1, -70)
+MainContent.Position = UDim2.new(0, 10, 0, 65)
+MainContent.BackgroundTransparency = 1
+MainContent.Parent = Frame
+ 
+local CreditsContent = MainContent:Clone()
+CreditsContent.Visible = false
+CreditsContent.Parent = Frame
+ 
+local Subtitle = Instance.new("TextLabel")
+Subtitle.Size = UDim2.new(1, 0, 0, 20)
+Subtitle.Position = UDim2.new(0, 0, 0, 10)
+Subtitle.BackgroundTransparency = 1
+Subtitle.Text = "Made by Gab"
+Subtitle.TextColor3 = Color3.fromRGB(200, 200, 200)
+Subtitle.Font = Enum.Font.SourceSans
+Subtitle.TextSize = 18
+Subtitle.TextXAlignment = Enum.TextXAlignment.Center
+Subtitle.Parent = CreditsContent
+ 
+local DiscordBtn = Instance.new("TextButton")
+DiscordBtn.Size = UDim2.new(0.6, 0, 0, 30)
+DiscordBtn.Position = UDim2.new(0.2, 0, 0, 40)
+DiscordBtn.Text = "Ringta's Discord server"
+DiscordBtn.Font = Enum.Font.SourceSans
+DiscordBtn.TextSize = 18
+DiscordBtn.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+DiscordBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+Instance.new("UICorner", DiscordBtn)
+DiscordBtn.Parent = CreditsContent
+ 
+DiscordBtn.MouseButton1Click:Connect(function()
+	if setclipboard then
+		setclipboard("https://discord.gg/ringta")
+		pcall(function()
+			game.StarterGui:SetCore("SendNotification", {
+				Title = "Success",
+				Text = "Copied to clipboard!",
+				Duration = 3
+			})
+		end)
+	end
+end)
+ 
+TabMain.MouseButton1Click:Connect(function()
+	MainContent.Visible = true
+	CreditsContent.Visible = false
+end)
+ 
+TabCredits.MouseButton1Click:Connect(function()
+	MainContent.Visible = false
+	CreditsContent.Visible = true
+end)
+ 
+local MinimizeBtn = Instance.new("TextButton")
+MinimizeBtn.Size = UDim2.new(0, 30, 0, 30)
+MinimizeBtn.Position = UDim2.new(1, -35, 0, 0)
+MinimizeBtn.Text = "-"
+MinimizeBtn.Font = Enum.Font.SourceSansBold
+MinimizeBtn.TextSize = 24
+MinimizeBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+MinimizeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+Instance.new("UICorner", MinimizeBtn)
+MinimizeBtn.Parent = Frame
+ 
+local RestoreBtn = Instance.new("TextButton")
+RestoreBtn.Size = UDim2.new(0, 40, 0, 40)
+RestoreBtn.Position = UDim2.new(1, -50, 0, 10)
+RestoreBtn.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+RestoreBtn.Text = "G"
+RestoreBtn.TextSize = 20
+RestoreBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+RestoreBtn.Visible = false
+RestoreBtn.Active = true
+RestoreBtn.Draggable = true
+Instance.new("UICorner", RestoreBtn)
+RestoreBtn.Parent = ScreenGui
+ 
+MinimizeBtn.MouseButton1Click:Connect(function()
+	Frame.Visible = false
+	RestoreBtn.Visible = true
+end)
+ 
+RestoreBtn.MouseButton1Click:Connect(function()
+	Frame.Visible = true
+	RestoreBtn.Visible = false
+end)
+ 
+local function createButton(text, yOffset)
+	local button = Instance.new("TextButton")
+	button.Size = UDim2.new(0.8, 0, 0, 30)
+	button.Position = UDim2.new(0.1, 0, 0, yOffset)
+	button.Text = text
+	button.Font = Enum.Font.SourceSans
+	button.TextSize = 18
+	button.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+	button.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Instance.new("UICorner", button)
+	button.Parent = MainContent
+	return button
+end
+ 
+local RingtaBtn = createButton("Ringta scripts", 0)
+local InfiniteYieldBtn = createButton("Infinite yield", 35)
+local NullsFireBtn = createButton("Nulls Fire", 70)
+local AirwieldBtn = createButton("Airwield", 105)
+local AutoBondBtn = createButton("Auto bond", 140)
+local HorseClassBtn = createButton("Horse Class", 175)
+local VehicleFlyBtn = createButton("Vehicle fly", 210)
+local TeleportBtn = createButton("Teleport everywhere", 245)
+TeleportBtn.MouseButton1Click:Connect(function()
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/m00ndiety/dead-rails-teleport-everywhere/refs/heads/main/teleport%20all%20locations'))()
+end)
+ 
+ 
+RingtaBtn.MouseButton1Click:Connect(function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/ringtaa/NEWFIXEDUI.github.io/refs/heads/main/ui.lua"))()
+end)
+ 
+InfiniteYieldBtn.MouseButton1Click:Connect(function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+end)
+ 
+NullsFireBtn.MouseButton1Click:Connect(function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Null-Fire/main/Loader"))()
+end)
+ 
+AirwieldBtn.MouseButton1Click:Connect(function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/ringtaa/NEWAIRWELD.github.io/refs/heads/main/weld.lua"))()
+end)
+ 
+AutoBondBtn.MouseButton1Click:Connect(function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/hbjrev/autobond.github.io/refs/heads/main/ringta.lua"))()
+end)
+ 
+HorseClassBtn.MouseButton1Click:Connect(function()
+	local args = {
+		[1] = "Horse"
+	}
+	game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("RemotePromise"):WaitForChild("Remotes"):WaitForChild("C_BuyClass"):FireServer(unpack(args))
+end)
+ 
+VehicleFlyBtn.MouseButton1Click:Connect(function()
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Vehicle%20Fly%20Gui'))()
+end)
